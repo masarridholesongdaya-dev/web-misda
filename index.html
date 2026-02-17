@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="id" class="h-full">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MIS Darul Hikmah Bindang - Login</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <script src="/_sdk/data_sdk.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { font-family: 'Poppins', sans-serif; }
+    
+    body { background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 50%, #f0fdf4 100%); }
+    
+    .gradient-header { background: linear-gradient(135deg, #065f46 0%, #059669 100%); }
+    .gradient-accent { background: linear-gradient(135deg, #10b981 0%, #34d399 100%); }
+    .btn-primary { background: linear-gradient(135deg, #059669 0%, #10b981 100%); transition: all 0.3s ease; }
+    .btn-primary:hover { background: linear-gradient(135deg, #047857 0%, #059669 100%); transform: translateY(-2px); box-shadow: 0 10px 20px rgba(5, 150, 105, 0.3); }
+    
+    .glass-card { background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); border: 1px solid rgba(16, 185, 129, 0.1); }
+    .card-hover { transition: all 0.3s ease; }
+    .card-hover:hover { transform: translateY(-4px); box-shadow: 0 20px 25px rgba(5, 150, 105, 0.15); }
+    
+    .tab-active { background: linear-gradient(135deg, #059669 0%, #10b981 100%); color: white; box-shadow: 0 4px 12px rgba(5, 150, 105, 0.3); }
+    .tab-inactive { color: #6b7280; transition: all 0.3s ease; }
+    .tab-inactive:hover { background: rgba(16, 185, 129, 0.1); color: #059669; }
+    
+    .stat-card { background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%); border: 1px solid rgba(16, 185, 129, 0.2); transition: all 0.3s ease; }
+    .stat-card:hover { transform: translateY(-2px); border-color: rgba(16, 185, 129, 0.4); }
+    
+    .input-focus:focus { box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2); border-color: #10b981 !important; }
+    .input-field { border-color: #d1fae5; }
+    
+    .logo-img { width: 56px; height: 56px; border-radius: 0.875rem; box-shadow: 0 8px 16px rgba(5, 150, 105, 0.2); object-fit: cover; border: 2px solid rgba(255,255,255,0.3); }
+    
+    .logo-login { width: 100px; height: 100px; border-radius: 1.5rem; box-shadow: 0 12px 24px rgba(5, 150, 105, 0.25); object-fit: cover; border: 3px solid rgba(255,255,255,0.4); transition: transform 0.3s ease; }
+    .logo-login:hover { transform: scale(1.05); }
+    
+    .fade-in { animation: fadeIn 0.4s ease-out; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    
+    .delete-confirm { background: #dc2626; }
+    .delete-confirm:hover { background: #b91c1c; }
+    
+    .journal-link { transition: all 0.3s ease; border: 2px solid transparent; }
+    .journal-link:hover { transform: translateY(-6px); box-shadow: 0 20px 25px rgba(5, 150, 105, 0.2); }
+    
+    .badge-green { background: rgba(16, 185, 129, 0.1); color: #047857; border: 1px solid rgba(16, 185, 129, 0.3); }
+    .badge-emerald { background: rgba(52, 211, 153, 0.1); color: #059669; border: 1px solid rgba(52, 211, 153, 0.3); }
+    
+    .header-divider { height: 1px; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent); }
+
+    /* Login Page Styles */
+    .login-gradient { background: linear-gradient(135deg, #065f46 0%, #059669 50%, #10b981 100%); }
+    .login-card { background: white; box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2); }
+  </style>
+</head>
+<body class="h-full">
+  <div id="app" class="h-full overflow-auto">
+    <!-- Login Page -->
+    <div id="login-page" class="login-gradient h-full w-full flex items-center justify-center p-4">
+      <div class="w-full max-w-md">
+        <!-- Welcome Card -->
+        <div class="login-card rounded-3xl p-8 sm:p-10 text-center fade-in">
+          <!-- Logo Section -->
+          <div class="mb-8">
+            <img src="https://iili.io/qdjMK6N.md.jpg" alt="Logo MIS Darul Hikmah Bindang" class="logo-login mx-auto mb-6" loading="lazy" onerror="this.style.background='linear-gradient(135deg, #059669 0%, #10b981 100%)'; this.alt='Logo Sekolah';">
+          </div>
+
+          <!-- Welcome Text -->
+          <h1 class="text-3xl font-bold text-emerald-900 mb-2">Selamat Datang!</h1>
+          <p class="text-emerald-600 font-semibold mb-1">Sistem Host Web</p>
+          <p class="text-2xl font-bold text-emerald-700 mb-8">MIS Darul Hikmah Bindang</p>
+
+          <!-- Divider -->
+          <div class="h-1 bg-gradient-to-r from-emerald-200 via-teal-400 to-emerald-200 rounded-full mb-8"></div>
+
+          <!-- Login Form -->
+          <form id="login-form" class="space-y-5">
+            <div>
+              <label class="block text-sm font-bold text-emerald-900 mb-2 text-left">👤 Username</label>
+              <input type="text" id="login-username" required class="w-full px-4 py-3 border-2 input-field rounded-xl text-sm input-focus focus:outline-none" placeholder="Masukkan username">
+            </div>
+            <div>
+              <label class="block text-sm font-bold text-emerald-900 mb-2 text-left">🔐 Password</label>
+              <input type="password" id="login-password" required class="w-full px-4 py-3 border-2 input-field rounded-xl text-sm input-focus focus:outline-none" placeholder="Masukkan password">
+            </div>
+            
+            <!-- Error Message -->
+            <div id="login-error" class="hidden bg-red-50 border-2 border-red-300 text-red-700 px-4 py-3 rounded-xl text-sm font-semibold animate-pulse">
+              ❌ Username atau password salah!
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="w-full btn-primary text-white px-6 py-3 rounded-xl text-sm font-bold uppercase tracking-wide shadow-lg transform hover:scale-105 transition-transform">
+              🔓 Masuk ke Sistem
+            </button>
+          </form>
+        </div>
+
+        <!-- Footer -->
+        <p class="text-center text-white/70 text-xs font-medium mt-8">© 2024 MIS Darul Hikmah Bindang</p>
+      </div>
+    </div>
+
+    <!-- Main App (Hidden until login) -->
+    <div id="main-app" class="hidden h-full overflow-auto">
+      <!-- Header -->
+      <header class="gradient-header sticky top-0 z-50 shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+          <div class="flex items-center justify-between gap-4">
+            <div class="flex items-center gap-4 flex-1">
+              <img src="https://iili.io/qdjMK6N.md.jpg" alt="Logo Sekolah" class="logo-img" loading="lazy" onerror="this.style.background='linear-gradient(135deg, #059669 0%, #10b981 100%)'; this.alt='Logo Sekolah';">
+              <div class="flex-1">
+                <h1 id="school-name" class="text-2xl sm:text-3xl font-bold text-white leading-tight">MIS DARUL HIKMAH BINDANG</h1>
+                <p id="welcome-text" class="text-emerald-100 text-sm font-medium mt-1">Sistem Manajemen Informasi Sekolah</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-4">
+              <div class="text-right hidden sm:block bg-white/10 backdrop-blur-md rounded-lg px-4 py-3 border border-white/20">
+                <p class="text-emerald-100 text-xs font-semibold uppercase tracking-wide">Tahun Ajaran</p>
+                <p class="text-white text-lg font-bold">2026/2027</p>
+              </div>
+              <button onclick="logout()" class="bg-red-500/20 hover:bg-red-500/40 text-white px-4 py-2 rounded-lg text-sm font-bold transition-all border border-red-400/50">
+                🚪 Logout
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="header-divider"></div>
+      </header>
+
+      <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Stats Cards -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+          <div class="stat-card rounded-2xl p-6 card-hover">
+            <div class="flex items-center gap-4">
+              <div class="w-14 h-14 rounded-xl gradient-accent flex items-center justify-center shadow-lg">
+                <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"/>
+                </svg>
+              </div>
+              <div>
+                <p class="text-emerald-600 text-xs font-semibold uppercase tracking-wide">Total Siswa</p>
+                <p id="stat-siswa" class="text-3xl font-bold text-emerald-900">0</p>
+              </div>
+            </div>
+          </div>
+          <div class="stat-card rounded-2xl p-6 card-hover">
+            <div class="flex items-center gap-4">
+              <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-blue-400 to-blue-500 flex items-center justify-center shadow-lg">
+                <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                </svg>
+              </div>
+              <div>
+                <p class="text-blue-600 text-xs font-semibold uppercase tracking-wide">Total Guru</p>
+                <p id="stat-guru" class="text-3xl font-bold text-blue-900">0</p>
+              </div>
+            </div>
+          </div>
+          <div class="stat-card rounded-2xl p-6 card-hover">
+            <div class="flex items-center gap-4">
+              <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-amber-400 to-amber-500 flex items-center justify-center shadow-lg">
+                <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+                </svg>
+              </div>
+              <div>
+                <p class="text-amber-600 text-xs font-semibold uppercase tracking-wide">Total Kelas</p>
+                <p id="stat-kelas" class="text-3xl font-bold text-amber-900">0</p>
+              </div>
+            </div>
+          </div>
+          <div class="stat-card rounded-2xl p-6 card-hover">
+            <div class="flex items-center gap-4">
+              <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-purple-400 to-purple-500 flex items-center justify-center shadow-lg">
+                <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                </svg>
+              </div>
+              <div>
+                <p class="text-purple-600 text-xs font-semibold uppercase tracking-wide">Total Data</p>
+                <p id="stat-total" class="text-3xl font-bold text-purple-900">0</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Main Card -->
+        <div class="glass-card rounded-3xl shadow-2xl overflow-hidden">
+          <!-- Tabs -->
+          <div class="flex border-b border-emerald-100 overflow-x-auto bg-gradient-to-r from-white to-emerald-50">
+            <button onclick="switchTab('siswa')" id="tab-siswa" class="flex-1 min-w-[130px] py-5 px-4 text-sm font-semibold transition-all tab-active text-white whitespace-nowrap rounded-t-3xl">
+              👨‍🎓 Data Siswa
+            </button>
+            <button onclick="switchTab('guru')" id="tab-guru" class="flex-1 min-w-[130px] py-5 px-4 text-sm font-semibold transition-all tab-inactive whitespace-nowrap">
+              👨‍🏫 Data Guru
+            </button>
+            <button onclick="switchTab('kelas')" id="tab-kelas" class="flex-1 min-w-[130px] py-5 px-4 text-sm font-semibold transition-all tab-inactive whitespace-nowrap">
+              🏫 Data Kelas
+            </button>
+            <button onclick="switchTab('jurnal')" id="tab-jurnal" class="flex-1 min-w-[130px] py-5 px-4 text-sm font-semibold transition-all tab-inactive whitespace-nowrap">
+              📔 Jurnal Harian
+            </button>
+          </div>
+
+          <!-- Content Area -->
+          <div class="p-6 sm:p-8">
+            <!-- Journal Menu -->
+            <div id="journal-container" class="hidden">
+              <h3 class="text-2xl font-bold text-emerald-900 mb-6">📔 Jurnal Harian Guru - Pilih Kelas</h3>
+              <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                <a href="https://masarridholesongdaya-dev.github.io/JURNAL-MENGAJAR-mis-darul-hikmah/" target="_blank" rel="noopener noreferrer" class="journal-link bg-gradient-to-br from-blue-50 to-blue-100 border-2 border-blue-300 rounded-2xl p-6 hover:shadow-xl">
+                  <div class="flex items-center gap-3 mb-3">
+                    <span class="text-3xl">📚</span>
+                    <h4 class="font-bold text-blue-900">Kelas 1</h4>
+                  </div>
+                  <p class="text-sm text-blue-700 font-medium">Buka Jurnal Mengajar Kelas 1</p>
+                  <div class="mt-4 inline-flex items-center text-blue-600 text-xs font-bold uppercase tracking-wide">
+                    Buka Link →
+                  </div>
+                </a>
+                <a href="https://masarridholesongdaya-dev.github.io/jurnal-mengajar-kelas-2-mis-darul-hikmah/" target="_blank" rel="noopener noreferrer" class="journal-link bg-gradient-to-br from-emerald-50 to-emerald-100 border-2 border-emerald-300 rounded-2xl p-6 hover:shadow-xl">
+                  <div class="flex items-center gap-3 mb-3">
+                    <span class="text-3xl">📗</span>
+                    <h4 class="font-bold text-emerald-900">Kelas 2</h4>
+                  </div>
+                  <p class="text-sm text-emerald-700 font-medium">Buka Jurnal Mengajar Kelas 2</p>
+                  <div class="mt-4 inline-flex items-center text-emerald-600 text-xs font-bold uppercase tracking-wide">
+                    Buka Link →
+                  </div>
+                </a>
+                <a href="https://masarridholesongdaya-dev.github.io/jurnal-kelas-3-/" target="_blank" rel="noopener noreferrer" class="journal-link bg-gradient-to-br from-amber-50 to-amber-100 border-2 border-amber-300 rounded-2xl p-6 hover:shadow-xl">
+                  <div class="flex items-center gap-3 mb-3">
+                    <span class="text-3xl">📙</span>
+                    <h4 class="font-bold text-amber-900">Kelas 3</h4>
+                  </div>
+                  <p class="text-sm text-amber-700 font-medium">Buka Jurnal Mengajar Kelas 3</p>
+                  <div class="mt-4 inline-flex items-center text-amber-600 text-xs font-bold uppercase tracking-wide">
+                    Buka Link →
+                  </div>
+                </a>
+                <a href="https://masarridholesongdaya-dev.github.io/jurnal-kelas-4/" target="_blank" rel="noopener noreferrer" class="journal-link bg-gradient-to-br from-red-50 to-red-100 border-2 border-red-300 rounded-2xl p-6 hover:shadow-xl">
+                  <div class="flex items-center gap-3 mb-3">
+                    <span class="text-3xl">📕</span>
+                    <h4 class="font-bold text-red-900">Kelas 4</h4>
+                  </div>
+                  <p class="text-sm text-red-700 font-medium">Buka Jurnal Mengajar Kelas 4</p>
+                  <div class="mt-4 inline-flex items-center text-red-600 text-xs font-bold uppercase tracking-wide">
+                    Buka Link →
+                  </div>
+                </a>
+                <a href="https://masarridholesongdaya-dev.github.io/JURNAL-5323/" target="_blank" rel="noopener noreferrer" class="journal-link bg-gradient-to-br from-purple-50 to-purple-100 border-2 border-purple-300 rounded-2xl p-6 hover:shadow-xl">
+                  <div class="flex items-center gap-3 mb-3">
+                    <span class="text-3xl">📔</span>
+                    <h4 class="font-bold text-purple-900">Kelas 5</h4>
+                  </div>
+                  <p class="text-sm text-purple-700 font-medium">Buka Jurnal Mengajar Kelas 5</p>
+                  <div class="mt-4 inline-flex items-center text-purple-600 text-xs font-bold uppercase tracking-wide">
+                    Buka Link →
+                  </div>
+                </a>
+                <a href="https://masarridholesongdaya-dev.github.io/jurnal-6/" target="_blank" rel="noopener noreferrer" class="journal-link bg-gradient-to-br from-pink-50 to-pink-100 border-2 border-pink-300 rounded-2xl p-6 hover:shadow-xl">
+                  <div class="flex items-center gap-3 mb-3">
+                    <span class="text-3xl">📖</span>
+                    <h4 class="font-bold text-pink-900">Kelas 6</h4>
+                  </div>
+                  <p class="text-sm text-pink-700 font-medium">Buka Jurnal Mengajar Kelas 6</p>
+                  <div class="mt-4 inline-flex items-center text-pink-600 text-xs font-bold uppercase tracking-wide">
+                    Buka Link →
+                  </div>
+                </a>
+              </div>
+            </div>
+
+            <!-- Add Form -->
+            <div id="form-container" class="mb-8 p-6 sm:p-8 bg-gradient-to-br from-emerald-50 to-teal-50 rounded-2xl border-2 border-emerald-200">
+              <h3 id="form-title" class="text-xl font-bold text-emerald-900 mb-6">➕ Tambah Data Siswa</h3>
+              <form id="data-form" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                <div>
+                  <label class="block text-sm font-bold text-emerald-900 mb-2">Nama Lengkap</label>
+                  <input type="text" id="input-name" required class="w-full px-4 py-3 border-2 input-field rounded-xl text-sm input-focus focus:outline-none" placeholder="Masukkan nama lengkap">
+                </div>
+                <div>
+                  <label class="block text-sm font-bold text-emerald-900 mb-2" id="label-identifier">NIS</label>
+                  <input type="text" id="input-identifier" required class="w-full px-4 py-3 border-2 input-field rounded-xl text-sm input-focus focus:outline-none" placeholder="Masukkan NIS">
+                </div>
+                <div id="field-class">
+                  <label class="block text-sm font-bold text-emerald-900 mb-2">Kelas</label>
+                  <input type="text" id="input-class" class="w-full px-4 py-3 border-2 input-field rounded-xl text-sm input-focus focus:outline-none" placeholder="Contoh: XII IPA 1">
+                </div>
+                <div id="field-subject" class="hidden">
+                  <label class="block text-sm font-bold text-emerald-900 mb-2">Mata Pelajaran</label>
+                  <input type="text" id="input-subject" class="w-full px-4 py-3 border-2 input-field rounded-xl text-sm input-focus focus:outline-none" placeholder="Contoh: Matematika">
+                </div>
+                <div>
+                  <label class="block text-sm font-bold text-emerald-900 mb-2">No. Telepon</label>
+                  <input type="tel" id="input-phone" class="w-full px-4 py-3 border-2 input-field rounded-xl text-sm input-focus focus:outline-none" placeholder="08xxxxxxxxxx">
+                </div>
+                <div class="sm:col-span-2 lg:col-span-1">
+                  <label class="block text-sm font-bold text-emerald-900 mb-2">Alamat</label>
+                  <input type="text" id="input-address" class="w-full px-4 py-3 border-2 input-field rounded-xl text-sm input-focus focus:outline-none" placeholder="Masukkan alamat">
+                </div>
+                <div class="sm:col-span-2 lg:col-span-3 flex gap-3">
+                  <button type="submit" id="btn-submit" class="btn-primary text-white px-8 py-3 rounded-xl text-sm font-bold uppercase tracking-wide">
+                    💾 Simpan Data
+                  </button>
+                  <button type="button" id="btn-cancel" onclick="cancelEdit()" class="hidden bg-slate-300 text-slate-700 px-8 py-3 rounded-xl text-sm font-bold uppercase tracking-wide hover:bg-slate-400 transition-all">
+                    ❌ Batal
+                  </button>
+                </div>
+              </form>
+            </div>
+
+            <!-- Search -->
+            <div class="mb-6" id="search-container">
+              <input type="text" id="search-input" onkeyup="filterData()" class="w-full px-5 py-3 border-2 input-field rounded-xl text-sm input-focus focus:outline-none" placeholder="🔍 Cari data...">
+            </div>
+
+            <!-- Data List -->
+            <div id="data-list" class="space-y-4">
+              <div class="text-center py-16 text-emerald-400">
+                <p class="text-6xl mb-4">📚</p>
+                <p class="text-lg font-semibold text-emerald-900">Belum ada data. Mulai dengan menambahkan data baru!</p>
+              </div>
+            </div>
+
+            <!-- Limit Warning -->
+            <div id="limit-warning" class="hidden mt-6 p-4 bg-amber-50 border-2 border-amber-300 rounded-xl text-amber-900 text-sm font-semibold">
+              ⚠️ Batas maksimum 999 data telah tercapai. Hapus beberapa data untuk menambah data baru.
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <!-- Footer -->
+      <footer class="text-center py-8 text-emerald-700 text-sm font-medium mt-8">
+        <p>© 2024 MIS Darul Hikmah Bindang. All Rights Reserved.</p>
+        <p class="text-emerald-600 mt-1">Sistem Manajemen Informasi Sekolah</p>
+      </footer>
+    </div>
+  </div>
+
+  <script>
+    // Login Logic
+    const validCredentials = {
+      username: 'admin',
+      password: 'login'
+    };
+
+    document.getElementById('login-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      const username = document.getElementById('login-username').value.trim();
+      const password = document.getElementById('login-password').value.trim();
+      const errorMsg = document.getElementById('login-error');
+
+      if (username === validCredentials.username && password === validCredentials.password) {
+        errorMsg.classList.add('hidden');
+        localStorage.setItem('mis-logged-in', 'true');
+        showMainApp();
+      } else {
+        errorMsg.classList.remove('hidden');
+        document.getElementById('login-password').value = '';
+      }
+    });
+
+    function showMainApp() {
+      document.getElementById('login-page').classList.add('hidden');
+      document.getElementById('main-app').classList.remove('hidden');
+      initializeApp();
+    }
+
+    function logout() {
+      localStorage.removeItem('mis-logged-in');
+      document.getElementById('login-page').classList.remove('hidden');
+      document.getElementById('main-app').classList.add('hidden');
+      document.getElementById('login-form').reset();
+      document.getElementById('login-error').classList.add('hidden');
+    }
+
+    // Check if already logged in
+    window.addEventListener('load', () => {
+      if (localStorage.getItem('mis-logged-in') === 'true') {
+        showMainApp();
+      }
+    });
+
+    // App Logic
+    const defaultConfig = {
+      school_name: 'MIS DARUL HIKMAH BINDANG',
+      welcome_text: 'Sistem Manajemen Informasi Sekolah'
+    };
+
+    let config = { ...defaultConfig };
+    let currentTab = 'siswa';
+    let allData = [];
+    let editingId = null;
+    let deleteConfirmId = null;
+
+    if (window.elementSdk) {
+      window.elementSdk.init({
+        defaultConfig,
+        onConfigChange: async (newConfig) => {
+          config = { ...defaultConfig, ...newConfig };
+          applyConfig();
+        },
+        mapToCapabilities: (cfg) => ({
+          recolorables: [],
+          borderables: [],
+          fontEditable: undefined,
+          fontSizeable: undefined
+        }),
+        mapToEditPanelValues: (cfg) => new Map([
+          ['school_name', cfg.school_name || defaultConfig.school_name],
+          ['welcome_text', cfg.welcome_text || defaultConfig.welcome_text]
+        ])
+      });
+    }
+
+    function applyConfig() {
+      const schoolName = document.getElementById('school-name');
+      const welcomeText = document.getElementById('welcome-text');
+      if (schoolName) schoolName.textContent = config.school_name || defaultConfig.school_name;
+      if (welcomeText) welcomeText.textContent = config.welcome_text || defaultConfig.welcome_text;
+    }
+
+    function initializeApp() {
+      const dataHandler = {
+        onDataChanged(data) {
+          allData = data;
+          updateStats();
+          renderData();
+        }
+      };
+
+      if (window.dataSdk) {
+        window.dataSdk.init(dataHandler);
+      }
+
+      applyConfig();
+    }
+
+    function updateStats() {
+      const siswaCount = allData.filter(d => d.type === 'siswa').length;
+      const guruCount = allData.filter(d => d.type === 'guru').length;
+      const kelasCount = allData.filter(d => d.type === 'kelas').length;
+      
+      document.getElementById('stat-siswa').textContent = siswaCount;
+      document.getElementById('stat-guru').textContent = guruCount;
+      document.getElementById('stat-kelas').textContent = kelasCount;
+      document.getElementById('stat-total').textContent = allData.length;
+      
+      document.getElementById('limit-warning').classList.toggle('hidden', allData.length < 999);
+    }
+
+    function switchTab(tab) {
+      currentTab = tab;
+      cancelEdit();
+      
+      document.querySelectorAll('[id^="tab-"]').forEach(t => {
+        t.classList.remove('tab-active');
+        t.classList.add('tab-inactive');
+      });
+      document.getElementById(`tab-${tab}`).classList.add('tab-active');
+      document.getElementById(`tab-${tab}`).classList.remove('tab-inactive');
+      
+      const isJurnal = tab === 'jurnal';
+      document.getElementById('journal-container').classList.toggle('hidden', !isJurnal);
+      document.getElementById('form-container').classList.toggle('hidden', isJurnal);
+      document.getElementById('search-container').classList.toggle('hidden', isJurnal);
+      document.getElementById('data-list').classList.toggle('hidden', isJurnal);
+      
+      if (!isJurnal) {
+        const titles = { siswa: 'Siswa', guru: 'Guru', kelas: 'Kelas' };
+        const identifiers = { siswa: 'NIS', guru: 'NIP', kelas: 'Kode Kelas' };
+        const placeholders = { siswa: 'Masukkan NIS', guru: 'Masukkan NIP', kelas: 'Contoh: XII-IPA-1' };
+        
+        document.getElementById('form-title').textContent = `➕ Tambah Data ${titles[tab]}`;
+        document.getElementById('label-identifier').textContent = identifiers[tab];
+        document.getElementById('input-identifier').placeholder = placeholders[tab];
+        
+        document.getElementById('field-class').classList.toggle('hidden', tab === 'kelas');
+        document.getElementById('field-subject').classList.toggle('hidden', tab !== 'guru');
+        
+        if (tab === 'kelas') {
+          document.getElementById('input-name').placeholder = 'Nama Wali Kelas';
+        } else {
+          document.getElementById('input-name').placeholder = 'Masukkan nama';
+        }
+        
+        renderData();
+      }
+    }
+
+    function renderData() {
+      const searchTerm = document.getElementById('search-input').value.toLowerCase();
+      const filteredData = allData.filter(d => {
+        if (d.type !== currentTab) return false;
+        if (!searchTerm) return true;
+        return (d.name || '').toLowerCase().includes(searchTerm) ||
+               (d.identifier || '').toLowerCase().includes(searchTerm) ||
+               (d.class_name || '').toLowerCase().includes(searchTerm);
+      });
+      
+      const container = document.getElementById('data-list');
+      
+      if (filteredData.length === 0) {
+        const emojis = { siswa: '👨‍🎓', guru: '👨‍🏫', kelas: '🏫' };
+        container.innerHTML = `
+          <div class="text-center py-16 text-emerald-400">
+            <p class="text-6xl mb-4">${emojis[currentTab]}</p>
+            <p class="text-lg font-semibold text-emerald-900">Belum ada data ${currentTab}. Mulai dengan menambahkan data baru!</p>
+          </div>
+        `;
+        return;
+      }
+      
+      container.innerHTML = filteredData.map(item => {
+        const isConfirming = deleteConfirmId === item.__backendId;
+        return `
+          <div class="bg-white border-2 border-emerald-100 rounded-2xl p-5 card-hover fade-in shadow-md" data-id="${item.__backendId}">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div class="flex-1">
+                <div class="flex items-center gap-3 mb-2">
+                  <span class="text-2xl">${currentTab === 'siswa' ? '👨‍🎓' : currentTab === 'guru' ? '👨‍🏫' : '🏫'}</span>
+                  <h4 class="font-bold text-lg text-emerald-900">${escapeHtml(item.name)}</h4>
+                </div>
+                <div class="flex flex-wrap gap-2 text-xs">
+                  <span class="badge-green px-3 py-1 rounded-full font-semibold">${currentTab === 'siswa' ? 'NIS' : currentTab === 'guru' ? 'NIP' : 'Kode'}: ${escapeHtml(item.identifier)}</span>
+                  ${item.class_name ? `<span class="badge-emerald px-3 py-1 rounded-full font-semibold">Kelas: ${escapeHtml(item.class_name)}</span>` : ''}
+                  ${item.subject ? `<span class="badge-emerald px-3 py-1 rounded-full font-semibold">Mapel: ${escapeHtml(item.subject)}</span>` : ''}
+                  ${item.phone ? `<span class="badge-green px-3 py-1 rounded-full font-semibold">📞 ${escapeHtml(item.phone)}</span>` : ''}
+                </div>
+                ${item.address ? `<p class="text-xs text-emerald-600 mt-3 font-medium">📍 ${escapeHtml(item.address)}</p>` : ''}
+              </div>
+              <div class="flex gap-2">
+                <button onclick="editItem('${item.__backendId}')" class="px-4 py-2 bg-amber-100 text-amber-700 rounded-lg text-xs font-bold hover:bg-amber-200 transition-colors">
+                  ✏️ Edit
+                </button>
+                ${isConfirming ? `
+                  <button onclick="confirmDelete('${item.__backendId}')" class="px-4 py-2 delete-confirm text-white rounded-lg text-xs font-bold hover:bg-red-700 transition-colors">
+                    ✓ Konfirmasi
+                  </button>
+                  <button onclick="cancelDelete()" class="px-4 py-2 bg-slate-300 text-slate-700 rounded-lg text-xs font-bold hover:bg-slate-400 transition-colors">
+                    ✕ Batal
+                  </button>
+                ` : `
+                  <button onclick="requestDelete('${item.__backendId}')" class="px-4 py-2 bg-red-100 text-red-700 rounded-lg text-xs font-bold hover:bg-red-200 transition-colors">
+                    🗑️ Hapus
+                  </button>
+                `}
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function escapeHtml(text) {
+      if (!text) return '';
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    function filterData() {
+      renderData();
+    }
+
+    document.getElementById('data-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      if (allData.length >= 999 && !editingId) {
+        document.getElementById('limit-warning').classList.remove('hidden');
+        return;
+      }
+      
+      const btn = document.getElementById('btn-submit');
+      btn.disabled = true;
+      btn.textContent = '⏳ Menyimpan...';
+      
+      const data = {
+        type: currentTab,
+        name: document.getElementById('input-name').value.trim(),
+        identifier: document.getElementById('input-identifier').value.trim(),
+        class_name: document.getElementById('input-class').value.trim(),
+        subject: document.getElementById('input-subject').value.trim(),
+        phone: document.getElementById('input-phone').value.trim(),
+        address: document.getElementById('input-address').value.trim(),
+        created_at: new Date().toISOString()
+      };
+      
+      let result;
+      if (editingId) {
+        const existingItem = allData.find(d => d.__backendId === editingId);
+        if (existingItem) {
+          result = await window.dataSdk.update({ ...existingItem, ...data });
+        }
+      } else {
+        result = await window.dataSdk.create(data);
+      }
+      
+      btn.disabled = false;
+      btn.textContent = '💾 Simpan Data';
+      
+      if (result && !result.isOk) {
+        console.error('Failed to save data');
+      } else {
+        cancelEdit();
+        document.getElementById('data-form').reset();
+      }
+    });
+
+    function editItem(id) {
+      const item = allData.find(d => d.__backendId === id);
+      if (!item) return;
+      
+      editingId = id;
+      document.getElementById('input-name').value = item.name || '';
+      document.getElementById('input-identifier').value = item.identifier || '';
+      document.getElementById('input-class').value = item.class_name || '';
+      document.getElementById('input-subject').value = item.subject || '';
+      document.getElementById('input-phone').value = item.phone || '';
+      document.getElementById('input-address').value = item.address || '';
+      
+      document.getElementById('form-title').textContent = '✏️ Edit Data';
+      document.getElementById('btn-submit').textContent = '💾 Update Data';
+      document.getElementById('btn-cancel').classList.remove('hidden');
+      
+      document.getElementById('form-container').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function cancelEdit() {
+      editingId = null;
+      deleteConfirmId = null;
+      document.getElementById('data-form').reset();
+      
+      const titles = { siswa: 'Siswa', guru: 'Guru', kelas: 'Kelas' };
+      document.getElementById('form-title').textContent = `➕ Tambah Data ${titles[currentTab]}`;
+      document.getElementById('btn-submit').textContent = '💾 Simpan Data';
+      document.getElementById('btn-cancel').classList.add('hidden');
+      
+      renderData();
+    }
+
+    function requestDelete(id) {
+      deleteConfirmId = id;
+      renderData();
+    }
+
+    function cancelDelete() {
+      deleteConfirmId = null;
+      renderData();
+    }
+
+    async function confirmDelete(id) {
+      const item = allData.find(d => d.__backendId === id);
+      if (!item) return;
+      
+      const result = await window.dataSdk.delete(item);
+      if (result && !result.isOk) {
+        console.error('Failed to delete data');
+      }
+      deleteConfirmId = null;
+    }
+  </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9cf251762131ddfc',t:'MTc3MTMwMDIwMi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
